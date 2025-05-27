@@ -77,13 +77,12 @@ function Hero() {
       </div>
 
       {/* Desktop View */}
-      <div className="hidden sm:block relative w-full min-h-[70vh] md:min-h-[80vh] lg:min-h-[90vh] xl:min-h-screen">
+      <div className="hidden sm:block relative w-full h-[90vh]">
         <img src={image} alt={title} className="w-full h-full object-cover" />
+
+        {/* Centered Overlay */}
         <div className="absolute inset-0 flex items-center justify-center px-4">
-          <div
-            className="bg-white/30 backdrop-blur-sm p-8 md:p-10 rounded-xl shadow-md text-center max-w-xl"
-            style={{ maxHeight: '50vh', overflowY: 'auto' }}
-          >
+          <div className="bg-white/30 backdrop-blur-sm p-8 md:p-10 rounded-xl shadow-md text-center max-w-xl">
             <h1 className="text-2xl md:text-4xl font-bold text-[#0047AB] mb-4">{title}</h1>
             <p className="text-sm md:text-base text-[#0047AB] mb-6">{description}</p>
             <button className="bg-[#0047AB] text-white px-6 py-2 md:px-8 md:py-3 rounded-full font-semibold hover:bg-[#003680] transition">
@@ -91,6 +90,8 @@ function Hero() {
             </button>
           </div>
         </div>
+
+        {/* Navigation Buttons */}
         <button
           onClick={prev}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/70 hover:bg-white text-[#0047AB] rounded-full p-3 shadow-md transition"
