@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { logo } from "../Assets";
 import {
@@ -31,73 +31,69 @@ const navLinks = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [servicesOpenDesktop, setServicesOpenDesktop] = useState(false);
-  const [servicesOpenMobile, setServicesOpenMobile] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const menuRef = useRef(null);
 
-  useEffect(() => setIsMounted(true), []);
+  useEffect(() => {
+    const closeOnClickOutside = (e) => {
+      if (!dropdownRef.current?.contains(e.target)) setDropdownOpen(false);
+      if (!menuRef.current?.contains(e.target)) setMenuOpen(false);
+    };
+    document.addEventListener("mousedown", closeOnClickOutside);
+    return () => document.removeEventListener("mousedown", closeOnClickOutside);
+  }, []);
 
   return (
     <>
       {/* Topbar */}
       <div className="bg-[#0047AB] p-1 text-white text-xs md:text-sm">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
+        <div className="max-w-7xl mx-auto flex justify-between px-4">
           <span>Support: +91-9876543210</span>
           <div className="flex gap-3 text-base md:text-lg">
-            <FaFacebookF className="cursor-pointer hover:text-gray-300" />
-            <FaTwitter className="cursor-pointer hover:text-gray-300" />
-            <FaInstagram className="cursor-pointer hover:text-gray-300" />
+            {[FaFacebookF, FaTwitter, FaInstagram].map((Icon, i) => (
+              <Icon key={i} className="cursor-pointer hover:text-gray-300" />
+            ))}
           </div>
         </div>
       </div>
 
       {/* Navbar */}
-      <nav className="bg-white shadow-sm border-b border-gray-200 p-2 sticky top-0 z-50">
+      <nav className="bg-white shadow-sm p-2 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
           <Link to="/">
             <img src={logo} alt="Logo" className="h-14 max-w-[180px]" />
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-6 text-black font-medium text-sm md:text-base lg:text-lg relative">
+          <div className="hidden md:flex gap-6 text-sm md:text-base lg:text-lg font-medium">
             {navLinks.map((link, i) =>
               link.subLinks ? (
-                <div key={i} className="relative">
+                <div key={i} className="relative" ref={dropdownRef}>
                   <button
-                    onClick={() => setServicesOpenDesktop(!servicesOpenDesktop)}
-                    className="flex items-center gap-2 hover:underline focus:outline-none"
-                    aria-haspopup="true"
-                    aria-expanded={servicesOpenDesktop}
+                    onClick={() => setDropdownOpen((prev) => !prev)}
+                    className="flex items-center gap-2 cursor-pointer"
                   >
                     {link.label}
-                    {servicesOpenDesktop ? (
-                      <FaChevronUp className="text-xs md:text-sm" />
-                    ) : (
-                      <FaChevronDown className="text-xs md:text-sm" />
-                    )}
+                    {dropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
                   </button>
-
-                  {servicesOpenDesktop && (
-                    <div className="absolute top-full left-0 mt-2 w-64 bg-white border rounded-md shadow-lg py-2 z-50">
-                      {link.subLinks.map((sublink, j) => (
+                  {dropdownOpen && (
+                    <div className="absolute bg-white border shadow-md mt-2 w-64 rounded z-50 py-2">
+                      {link.subLinks.map((s, j) => (
                         <Link
                           key={j}
-                          to={sublink.href}
-                          onClick={() => setServicesOpenDesktop(false)}
-                          className="block px-4 py-2 text-xs md:text-sm lg:text-base text-gray-800 hover:bg-gray-100"
+                          to={s.href}
+                          className="block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
+                          onClick={() => setDropdownOpen(false)}
                         >
-                          {sublink.label}
+                          {s.label}
                         </Link>
                       ))}
                     </div>
                   )}
                 </div>
               ) : (
-                <Link
-                  key={i}
-                  to={link.href}
-                  className="hover:underline text-sm md:text-base lg:text-lg"
-                >
+                <Link key={i} to={link.href} className="cursor-pointer">
                   {link.label}
                 </Link>
               )
@@ -105,65 +101,35 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => {
-              setMenuOpen(!menuOpen);
-              setServicesOpenMobile(false);
-            }}
-            className="md:hidden text-2xl text-black focus:outline-none"
-            aria-label="Toggle menu"
-          >
+          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-2xl">
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {isMounted && menuOpen && (
-          <div className="fixed top-0 left-0 w-full h-full bg-white z-40 p-6 space-y-6 overflow-y-auto ">
-            <div className="flex justify-between items-center border-b pb-4">
-              <span className="text-lg font-bold">Menu</span>
-              <button
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl text-black focus:outline-none"
-                aria-label="Close menu"
-              >
+        {menuOpen && (
+          <div ref={menuRef} className="fixed inset-0 bg-white z-40 p-6 space-y-6 overflow-y-auto">
+            <div className="flex justify-between border-b pb-4">
+              <span className="font-bold text-lg">Menu</span>
+              <button onClick={() => setMenuOpen(false)} className="text-2xl">
                 <FaTimes />
               </button>
             </div>
 
             {navLinks.map((link, i) =>
               link.subLinks ? (
-                <div key={i}>
-                  <button
-                    onClick={() => setServicesOpenMobile(!servicesOpenMobile)}
-                    className="flex justify-between w-full text-left font-semibold text-black focus:outline-none text-base"
-                    aria-haspopup="true"
-                    aria-expanded={servicesOpenMobile}
-                  >
-                    {link.label}
-                    {servicesOpenMobile ? <FaChevronUp /> : <FaChevronDown />}
-                  </button>
-                  {servicesOpenMobile && (
-                    <div className="pl-4 mt-2 space-y-2">
-                      {link.subLinks.map((sublink, j) => (
-                        <Link
-                          key={j}
-                          to={sublink.href}
-                          onClick={() => setMenuOpen(false)}
-                          className="block text-black hover:underline text-base"
-                        >
-                          {sublink.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <DropdownMenu
+                  key={i}
+                  label={link.label}
+                  links={link.subLinks}
+                  onClose={() => setMenuOpen(false)}
+                />
               ) : (
                 <Link
                   key={i}
                   to={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="block text-black hover:underline text-base"
+                  className="block text-base cursor-pointer"
                 >
                   {link.label}
                 </Link>
@@ -173,5 +139,34 @@ export default function Navbar() {
         )}
       </nav>
     </>
+  );
+}
+
+function DropdownMenu({ label, links, onClose }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <button
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex justify-between w-full font-semibold text-base cursor-pointer"
+      >
+        {label}
+        {open ? <FaChevronUp /> : <FaChevronDown />}
+      </button>
+      {open && (
+        <div className="pl-4 mt-2 space-y-2">
+          {links.map((link, i) => (
+            <Link
+              key={i}
+              to={link.href}
+              onClick={onClose}
+              className="block text-base cursor-pointer"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
