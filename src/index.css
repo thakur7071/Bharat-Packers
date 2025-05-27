@@ -1,0 +1,9 @@
+/* Import Google Font first */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700&display=swap');
+
+@import "tailwindcss";
+
+/* Apply Global Font */
+body {
+  font-family: "Josefin Sans", sans-serif;
+}
