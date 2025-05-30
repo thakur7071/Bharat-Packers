@@ -1,9 +1,9 @@
-import domesticpacker from './domesticpackersbanner.jpg'
-import heroimg from './goodluckpackers1.jpg'
-import logo from './goodluckpackerslogo.png'
-import officebanner from './officebanner.jpg'
-import localpackers from './localpackersbanner.jpg'
-import warehouse from './warehouse.jpg'
+import domesticpacker from './domesticpackersbanner.webp'
+import heroimg from './goodluckpackers1.webp'
+import logo from './goodluckpackerslogo.webp'
+import officebanner from './officebanner.webp'
+import localpackers from './localpackersbanner.webp'
+import warehouse from './warehouse.webp'
 export { 
     warehouse,
 officebanner,
