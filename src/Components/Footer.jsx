@@ -9,15 +9,15 @@ function Footer() {
         {/* Company Info */}
         <div>
           <h2 className="text-xl font-bold text-white mb-4">Goodluck Packers & Movers</h2>
-          <p className="text-sm">
+          <p className="">
             Trusted name in safe and affordable relocation. We move with care, every step of the way.
           </p>
         </div>
 
         {/* Services */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Our Services</h3>
-          <ul className="space-y-2 text-sm">
+          <h3 className="text-xl font-semibold text-white mb-4">Our Services</h3>
+          <ul className="space-y-2">
             <li>Local Household Shifting</li>
             <li>Domestic Shifting</li>
             <li>Corporate Relocation</li>
@@ -28,8 +28,8 @@ function Footer() {
 
         {/* Quick Links */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
-          <ul className="space-y-2 text-sm">
+          <h3 className="text-xl font-semibold text-white mb-4">Quick Links</h3>
+          <ul className="space-y-2">
             <li>About Us</li>
             <li>Testimonials</li>
             <li>FAQs</li>
@@ -39,7 +39,7 @@ function Footer() {
 
         {/* Social Media */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Connect With Us</h3>
+          <h3 className="text-xl font-semibold text-white mb-4">Connect With Us</h3>
           <div className="flex gap-4">
             <a href="#" className="hover:text-white"><FaFacebookF /></a>
             <a href="#" className="hover:text-white"><FaTwitter /></a>
@@ -50,7 +50,7 @@ function Footer() {
       </div>
 
       {/* Footer Bottom */}
-      <div className="border-t border-gray-700 mt-10 pt-4 text-center text-sm text-white">
+      <div className="border-t border-gray-700 mt-10 pt-4 text-center text-lg text-white">
         © {new Date().getFullYear()} Goodluck Packers & Movers. All rights reserved.
       </div>
     </footer>

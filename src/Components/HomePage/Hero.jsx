@@ -45,8 +45,8 @@ function Hero() {
       <div className="relative block sm:hidden">
         <img src={image} alt={title} className="w-full object-cover" />
         <div className="bg-gray-300 p-6 text-center w-full rounded-md shadow-md text-white">
-          <h1 className="text-lg font-bold mb-4 text-[#ff3131]">{title}</h1>
-          <p className="text-sm mb-6 text-[#ff3131]">{description}</p>
+          <h1 className="text-xl font-bold mb-4 text-[#ff3131]">{title}</h1>
+          <p className="text-lg mb-6 text-[#ff3131]">{description}</p>
           <button className="bg-white text-[#ff3131] px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition">
             {buttonText}
           </button>
@@ -75,7 +75,7 @@ function Hero() {
         <div className="absolute inset-0 flex items-center justify-center px-4">
           <div className="bg-white/50 backdrop-blur-sm p-8 md:p-10 rounded-xl shadow-md text-center max-w-xl">
             <h1 className="text-2xl md:text-4xl font-bold text-[#ff3131] mb-4">{title}</h1>
-            <p className="text-sm md:text-base text-[#ff3131] mb-6">{description}</p>
+            <p className="text-lg text-[#ff3131] mb-6">{description}</p>
             <button className="bg-[#ff3131] text-white px-6 py-2 md:px-8 md:py-3 rounded-full font-semibold hover:bg-[#fdd7d6] hover:text-[#ff3131] transition">
               {buttonText}
             </button>

@@ -73,7 +73,7 @@ function HomeAbout() {
     <h2 className="text-2xl md:text-3xl font-bold text-[#ff3131] mb-2">
       Why Choose Our Service?
     </h2>
- <p className="text-gray-700 mb-2">
+ <p className="text-gray-700 mb-2 text-lg">
   We provide fast, reliable, and affordable transportation solutions across the country.
   Get your goods moved safely and quickly with our experienced team and modern vehicles.
   Our services are tailored to meet your unique logistics needs, no matter the distance.
