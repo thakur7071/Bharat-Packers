@@ -50,7 +50,7 @@ function Footer() {
       </div>
 
       {/* Footer Bottom */}
-      <div className="border-t border-gray-700 mt-10 pt-4 text-center text-lg text-white">
+      <div className="border-t border-gray-700 mt-10 pt-4 text-center text-white">
         © {new Date().getFullYear()} Goodluck Packers & Movers. All rights reserved.
       </div>
     </footer>
